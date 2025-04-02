@@ -41,6 +41,9 @@ const execAsync = promisify(exec);
 
 export async function findPackages(dirPath: string) {
   try {
+    if (dirPath === ".") {
+        dirPath = process.cwd()
+    }
     const { stdout } = await execAsync(buildCommand(dirPath));
     const packages = stdout.trim().split('\n')
 
