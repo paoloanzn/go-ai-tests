@@ -1,14 +1,15 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --disable-warning=ExperimentalWarning
 
 import { Command } from 'commander';
 import { CommandData, initCommands } from './command';
+import { version } from '../package.json'
 
 const program = new Command();
 
 program
   .name('go-ai-tests')
   .description('Generate Go tests file using ai.')
-  .version('1.0.0');
+  .version(version);
 
 const commands: CommandData[] = []
 

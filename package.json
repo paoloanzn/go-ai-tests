@@ -1,9 +1,8 @@
 {
   "name": "go-ai-tests",
-  "version": "0.0.1",
+  "version": "v0.0.2-alpha",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
   "keywords": [],
@@ -15,16 +14,18 @@
     "ai": "^4.2.9",
     "chalk": "^5.4.1",
     "commander": "^13.1.0",
+    "inquirer": "^12.5.0",
     "tiktoken": "^1.0.20"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
+    "@types/inquirer": "^9.0.7",
     "@types/json-schema": "^7.0.15",
     "@types/node": "^22.13.14",
     "dotenv": "^16.4.7",
     "typescript": "^5.8.2"
   },
   "bin": {
-    "go-ai-tests": "./dist/index.js"
+    "go-ai-tests": "NODE_OPTIONS=\"--disable-warning=ExperimentalWarning\" ./dist/index.js"
   }
 }
