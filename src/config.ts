@@ -44,7 +44,9 @@ async function addEntriesToConfigFile(entries: ConfigEntry[]) {
   const { savedConfig, configFilePath } = await getConfigFile();
 
   if (settings.LOG_LEVEL === "DEBUG") {
-    console.log(chalk.magenta(`LOADED CONFIG:\n${JSON.stringify(savedConfig)}`))
+    console.log(
+      chalk.magenta(`LOADED CONFIG:\n${JSON.stringify(savedConfig)}`)
+    );
   }
 
   entries.forEach((entry) => {
@@ -58,7 +60,7 @@ async function addEntriesToConfigFile(entries: ConfigEntry[]) {
       formattedContent += `${key}=${config[key]}\n`;
     }
     return formattedContent;
-  }
+  };
 
   writeFileSync(configFilePath, formattedContent(savedConfig), "utf-8");
 }
@@ -73,19 +75,28 @@ const createConfig = async () => {
     },
   ]);
 
+  const { value } = await inquirer.prompt([
+    {
+      type: "input",
+      name: "value",
+      message: "Enter API KEY:",
+    },
+  ]);
+
   switch (choice.toUpperCase()) {
     case "GOOGLE":
-      const { value } = await inquirer.prompt([
-        {
-          type: "input",
-          name: "value",
-          message: "Enter API KEY:",
-        },
-      ]);
-
       await addEntriesToConfigFile([
         {
           name: "GOOGLE_GENERATIVE_AI_API_KEY",
+          value,
+        },
+      ]);
+      break;
+
+    case "OPENAI":
+      await addEntriesToConfigFile([
+        {
+          name: "OPENAI_API_KEY",
           value,
         },
       ]);

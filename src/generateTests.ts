@@ -2,19 +2,10 @@ import chalk from "chalk";
 import { CommandData } from "./command";
 import { findPackages, GoPackage } from "./packages";
 import { settings } from "./settings";
-import { aiGenerateObject, AiOptions, ModelSettings } from "./ai";
+import { aiGenerateObject, ModelClass } from "./ai";
 import { z } from "zod";
 import * as fs from "fs";
 import { generateTestsPrompt } from "./prompts";
-
-function replacePattern(
-  template: string,
-  replacements: Record<string, string>
-): string {
-  return template.replace(/{{\s*(\w+)\s*}}/g, (_, name) => {
-    return replacements[name] || "";
-  });
-}
 
 function formatContent(paths: string[]): string {
   let formattedContent = "";
@@ -94,11 +85,7 @@ const generate = async (path: string, options: any) => {
 
     if (settings.LOG_LEVEL === "DEBUG") {
       console.log(chalk.magenta(`PROMPT:\n${prompt}`));
-    }
-
-    const modelSettings: ModelSettings = {
-      maxOutputTokens: 10000
-    }
+    } 
 
     const result = await aiGenerateObject({
       modelProvider:
@@ -106,13 +93,11 @@ const generate = async (path: string, options: any) => {
           ? options.provider.toUpperCase()
           : settings.provider,
       prompt,
-      modelName: "gemini-2.0-flash",
       schema: z.object({
         code: z.string(),
         fileName: z.string(),
       }),
-      apiKey: settings.GOOGLE_GENERATIVE_AI_API_KEY as string,
-      modelSettings
+      modelClass: ModelClass.MEDIUM
     });
 
     fs.writeFileSync(result.fileName, result.code, "utf-8")
