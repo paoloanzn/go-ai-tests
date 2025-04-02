@@ -2,7 +2,7 @@ import chalk from "chalk";
 import { CommandData } from "./command";
 import { findPackages, GoPackage } from "./packages";
 import { settings } from "./settings";
-import { aiGenerateObject, AiOptions } from "./ai";
+import { aiGenerateObject, AiOptions, ModelSettings } from "./ai";
 import { z } from "zod";
 import * as fs from "fs";
 import { generateTestsPrompt } from "./prompts";
@@ -96,6 +96,10 @@ const generate = async (path: string, options: any) => {
       console.log(chalk.magenta(`PROMPT:\n${prompt}`));
     }
 
+    const modelSettings: ModelSettings = {
+      maxOutputTokens: 10000
+    }
+
     const result = await aiGenerateObject({
       modelProvider:
         "provider" in options
@@ -108,6 +112,7 @@ const generate = async (path: string, options: any) => {
         fileName: z.string(),
       }),
       apiKey: settings.GOOGLE_GENERATIVE_AI_API_KEY as string,
+      modelSettings
     });
 
     fs.writeFileSync(result.fileName, result.code, "utf-8")
