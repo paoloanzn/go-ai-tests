@@ -25,6 +25,7 @@ THE OUTPUT SHOULD BE IN THE FOLLOWING JSON FORMAT:
 \`\`\`
 { "code": <source_code>, "fileName": "<package_name>_test.go"}
 \`\`\`
+NOTE: Make sure to include the FULL PATH for fileName
 ${ params?.haveTests ? extendTestsOutputPrompt : ''}
 `;
 
