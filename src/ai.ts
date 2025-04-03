@@ -193,7 +193,7 @@ async function handleOpenAIProvider({
 
     return object;
   } catch (error: any) {
-    console.log(chalk.red(`Error generating object`));
+    console.log(chalk.red(`Error generating object: ${error}`));
     process.exit(1) 
   }
 }
@@ -249,7 +249,7 @@ async function handleGoogleProvider({
 
     return object;
   } catch (error: any) {
-    console.log(chalk.red(`Error generating object.`));
+    console.log(chalk.red(`Error generating object: ${error}`));
     process.exit(1)
   }
 }
