@@ -97,7 +97,7 @@ const generate = async (path: string, options: any) => {
         code: z.string(),
         fileName: z.string(),
       }),
-      modelClass: ModelClass.MEDIUM
+      modelClass: ModelClass.LARGE
     });
 
     fs.writeFileSync(result.fileName, result.code, "utf-8")
