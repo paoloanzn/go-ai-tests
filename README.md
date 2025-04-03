@@ -18,10 +18,10 @@ Writing comprehensive unit tests for Go packages can be time-consuming and repet
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ai-unittester.git
+git clone https://github.com/yourusername/go-ai-tests.git
 
 # Navigate to the project directory
-cd ai-unittester
+cd go-ai-tests
 
 # Install dependencies
 npm install
